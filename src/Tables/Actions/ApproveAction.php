@@ -13,7 +13,7 @@ class ApproveAction extends Action
 
     public static function getDefaultName(): ?string
     {
-        return 'Approve';
+        return __('Approve');
     }
 
 
@@ -22,7 +22,7 @@ class ApproveAction extends Action
         parent::setUp();
 
         $this->color('primary')
-            ->action('Approve')
+            ->action(__('Approve'))
             ->visible(
                 fn (Model $record) =>
                 $record->canBeApprovedBy(Auth::user()) &&
@@ -37,7 +37,7 @@ class ApproveAction extends Action
     public function action(Closure | string | null $action): static
     {
         if ($action !== 'Approve') {
-            throw new \Exception('You\'re unable to override the action for this plugin');
+            throw new \RuntimeException('You\'re unable to override the action for this plugin');
         }
 
         $this->action = $this->approveModel();
@@ -52,10 +52,10 @@ class ApproveAction extends Action
      */
     private function approveModel(): Closure
     {
-        return function (array $data, Model $record): bool {
+        return static function (array $data, Model $record): bool {
             $record->approve(comment: null, user: Auth::user());
             Notification::make()
-                ->title('Approved successfully')
+                ->title(__('Approved successfully'))
                 ->success()
                 ->send();
             return true;

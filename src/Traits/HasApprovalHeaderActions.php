@@ -14,6 +14,9 @@ use Filament\Actions\Action;
 trait HasApprovalHeaderActions
 {
 
+    /**
+     * @throws \Exception
+     */
     protected function getHeaderActions(): array
     {
         return [
@@ -21,6 +24,9 @@ trait HasApprovalHeaderActions
         ];
     }
 
+    /**
+     * @throws \Exception
+     */
     protected function getApprovalHeaderActions(): array
     {
         return [
@@ -35,12 +41,12 @@ trait HasApprovalHeaderActions
 
     /**
      * Get the completion action
-     * 
+     *
      * @return Filament\Actions\Action
-     * @throws Exception 
+     * @throws Exception
      */
     protected function getOnCompletionAction(): Action
     {
-        throw new Exception("Completion action not defined");
+        throw new \RuntimeException("Completion action not defined");
     }
 }

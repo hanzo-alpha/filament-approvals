@@ -13,7 +13,7 @@ class SubmitAction extends Action
 
     public static function getDefaultName(): ?string
     {
-        return 'Submit';
+        return __('Submit');
     }
 
 
@@ -22,7 +22,7 @@ class SubmitAction extends Action
         parent::setUp();
 
         $this->color('primary')
-            ->action('Submit')
+            ->action(__('Submit'))
             ->visible(fn (Model $record) => !$record->isSubmitted() &&
             $record->approvalStatus->creator_id == Auth::id())
             ->requiresConfirmation();
@@ -31,8 +31,8 @@ class SubmitAction extends Action
 
     public function action(Closure | string | null $action): static
     {
-        if ($action !== 'Submit') {
-            throw new \Exception('You\'re unable to override the action for this plugin');
+        if ($action !== __('Submit')) {
+            throw new \RuntimeException('You\'re unable to override the action for this plugin');
         }
 
         $this->action = $this->submitModel();

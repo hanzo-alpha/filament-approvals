@@ -13,7 +13,7 @@ class ApproveAction extends Action
 
     public static function getDefaultName(): ?string
     {
-        return 'Approve';
+        return __('Approve');
     }
 
 
@@ -22,7 +22,7 @@ class ApproveAction extends Action
         parent::setUp();
 
         $this->color('primary')
-            ->action('Approve')
+            ->action(__('Approve'))
             ->visible(
                 fn (Model $record) =>
                 $record->canBeApprovedBy(Auth::user()) &&
@@ -55,7 +55,7 @@ class ApproveAction extends Action
         return function (array $data, Model $record): bool {
             $record->approve(comment: null, user: Auth::user());
             Notification::make()
-                ->title('Approved successfully')
+                ->title(__('Approved successfully'))
                 ->success()
                 ->send();
             return true;

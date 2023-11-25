@@ -18,7 +18,7 @@ class ApprovalActions
                 DiscardAction::make(),
                 RejectAction::make(),
             ])
-                ->label('Approvals')
+                ->label(__('Approvals'))
                 ->icon('heroicon-m-ellipsis-vertical')
                 ->size(ActionSize::Small)
                 ->color('primary')

@@ -14,7 +14,7 @@ class DiscardAction extends Action
 
     public static function getDefaultName(): ?string
     {
-        return 'Discard';
+        return __('Discard');
     }
 
 
@@ -23,7 +23,7 @@ class DiscardAction extends Action
         parent::setUp();
 
         $this->color('danger')
-            ->action('Discard')
+            ->action(__('Discard'))
             ->visible(
                 fn (Model $record) =>
                 $record->canBeApprovedBy(Auth::user()) &&
@@ -35,8 +35,8 @@ class DiscardAction extends Action
 
     public function action(Closure | string | null $action): static
     {
-        if ($action !== 'Discard') {
-            throw new \Exception('You\'re unable to override the action for this plugin');
+        if ($action !== __('Discard')) {
+            throw new \RuntimeException(__('You\'re unable to override the action for this plugin'));
         }
 
         $this->action = $this->discardModel();
@@ -54,7 +54,7 @@ class DiscardAction extends Action
         return function (array $data, ApprovableModel $record): bool {
             $record->discard(null, Auth::user());
             Notification::make()
-                ->title('Discarded successfully')
+                ->title(__('Discarded successfully'))
                 ->success()
                 ->send();
 

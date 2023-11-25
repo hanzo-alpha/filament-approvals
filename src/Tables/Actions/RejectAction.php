@@ -15,7 +15,7 @@ class RejectAction extends Action
 
     public static function getDefaultName(): ?string
     {
-        return 'Reject';
+        return __('Reject');
     }
 
 
@@ -24,7 +24,7 @@ class RejectAction extends Action
         parent::setUp();
 
         $this->color('danger')
-            ->action('Reject')
+            ->action(__('Reject'))
             ->form($this->getDefaultForm())
             ->visible(
                 fn (Model $record) =>
@@ -40,8 +40,8 @@ class RejectAction extends Action
 
     public function action(Closure | string | null $action): static
     {
-        if ($action !== 'Reject') {
-            throw new \Exception('You\'re unable to override the action for this plugin');
+        if ($action !== __('Reject')) {
+            throw new \RuntimeException('You\'re unable to override the action for this plugin');
         }
 
         $this->action = $this->rejectModel();
@@ -59,7 +59,7 @@ class RejectAction extends Action
         return function (array $data, Model $record): bool {
             $record->reject($data["comment"], Auth::user());
             Notification::make()
-                ->title('Rejected successfully')
+                ->title(__('Rejected successfully'))
                 ->success()
                 ->send();
 
@@ -71,7 +71,7 @@ class RejectAction extends Action
     protected function getDefaultForm(): array
     {
         return [
-            Textarea::make("comment"),
+            Textarea::make(__('comment')),
         ];
     }
 }
